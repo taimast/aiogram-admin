@@ -1,0 +1,1 @@
+gettext = lambda s: s
