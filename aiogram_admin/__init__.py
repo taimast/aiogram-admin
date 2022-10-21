@@ -18,7 +18,7 @@ __all__ = (
 )
 
 
-async def setup_admin_handlers(dp: Dispatcher,
+def setup_admin_handlers(dp: Dispatcher,
                                admins: Iterable[int],
                                SubsChat: Type[models.BaseSubsChat],
                                User: Type[models.BaseUser],
