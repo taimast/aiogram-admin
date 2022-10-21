@@ -1,9 +1,8 @@
 from dataclasses import dataclass
-from typing import Sequence
+from typing import Sequence, Protocol
 
 
-@dataclass
-class BaseUser:
+class BaseUser(Protocol):
     id: int
     username: str
     first_name: str

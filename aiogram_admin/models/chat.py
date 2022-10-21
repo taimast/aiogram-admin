@@ -1,11 +1,10 @@
-from dataclasses import dataclass
-from typing import TypeAlias
+
+from typing import TypeAlias, Protocol
 
 ChatID: TypeAlias = str | int  # @username or id
 
 
-@dataclass
-class BaseSubsChat:
+class BaseSubsChat(Protocol):
     id: str | int
     chat_id: ChatID
     skin: str
