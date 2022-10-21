@@ -1,6 +1,8 @@
 from dataclasses import dataclass
-from typing import Sequence, Protocol
+from typing import Sequence, Protocol, runtime_checkable
 
+
+@runtime_checkable
 
 class BaseUser(Protocol):
     id: int

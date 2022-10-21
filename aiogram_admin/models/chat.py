@@ -1,9 +1,9 @@
 
-from typing import TypeAlias, Protocol
+from typing import TypeAlias, Protocol, runtime_checkable
 
 ChatID: TypeAlias = str | int  # @username or id
 
-
+@runtime_checkable
 class BaseSubsChat(Protocol):
     id: str | int
     chat_id: ChatID
