@@ -1,3 +1,5 @@
+from typing import Iterable
+
 from aiogram import Router, types
 from aiogram.filters import Command, StateFilter, Text
 from aiogram.fsm.context import FSMContext
@@ -41,13 +43,13 @@ async def export_users_finish(call: types.CallbackQuery, state: FSMContext):
     await call.message.answer("Пользователи выгружены", reply_markup=admin_markups.back())
 
 
-def register_admin(dp: Router):
+def register_admin(dp: Router, commands:Iterable[str]|str="admin"):
     dp.include_router(router)
 
     callback = router.callback_query.register
     message = router.message.register
 
-    message(admin_start, Command(commands="admin"), StateFilter("*"))
+    message(admin_start, Command(commands=commands), StateFilter("*"))
     callback(admin_start, Text("admin"), StateFilter("*"))
     callback(export_users_send_type, Text("export_users"), StateFilter("*"))
     callback(export_users_finish, StateFilter(ExportUsers.finish))

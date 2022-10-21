@@ -11,10 +11,10 @@ from .statistics_menu import register_statistics
 router = Router()
 
 
-def register_admin_handlers(dp: Dispatcher, admins: Iterable[int]):
+def register_admin_handlers(dp: Dispatcher, admins: Iterable[int], commands: Iterable[str]|str = None) -> None:
     router.message.filter(F.from_user.id.in_(admins))
     router.callback_query.filter(F.from_user.id.in_(admins))
-    register_admin(router)
+    register_admin(router, commands)
     register_chat(router)
     register_send_mail(router)
     register_bot_settings(router)
