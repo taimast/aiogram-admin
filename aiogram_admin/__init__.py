@@ -22,7 +22,7 @@ async def setup_admin_handlers(dp: Dispatcher,
                                admins: Iterable[int],
                                SubsChat: Type[models.BaseSubsChat],
                                User: Type[models.BaseUser],
-                               admin_command: Iterable[str] | str = None,
+                               admin_command: str = None,
                                temp_data: TempData = None) -> None:
     """
     Setup admin handlers
@@ -34,7 +34,7 @@ async def setup_admin_handlers(dp: Dispatcher,
     """
     models.BaseSubsChat = SubsChat
     models.BaseUser = User
-    config.ADMIN_COMMAND = admin_command
+    config.ADMIN_COMMAND = admin_command or config.ADMIN_COMMAND
     register_admin_handlers(dp, admins)
 
     if temp_data is None:
