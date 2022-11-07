@@ -2,7 +2,7 @@ from typing import Type, Iterable
 
 from aiogram import Dispatcher
 
-from aiogram_admin import models
+from aiogram_admin import models, config
 from aiogram_admin.filters.channel_subscription_filter import ChannelSubscriptionFilter
 from aiogram_admin.handlers.admin import register_admin_handlers
 from aiogram_admin.handlers.errors.errors_handlers import register_error
@@ -22,7 +22,7 @@ async def setup_admin_handlers(dp: Dispatcher,
                                admins: Iterable[int],
                                SubsChat: Type[models.BaseSubsChat],
                                User: Type[models.BaseUser],
-                               commands: Iterable[str] | str = None,
+                               admin_command: Iterable[str] | str = None,
                                temp_data: TempData = None) -> None:
     """
     Setup admin handlers
@@ -34,7 +34,8 @@ async def setup_admin_handlers(dp: Dispatcher,
     """
     models.BaseSubsChat = SubsChat
     models.BaseUser = User
-    register_admin_handlers(dp, admins, commands)
+    config.ADMIN_COMMAND = admin_command
+    register_admin_handlers(dp, admins)
 
     if temp_data is None:
         temp_data = TempData(subscription_channels=await SubsChat.all())

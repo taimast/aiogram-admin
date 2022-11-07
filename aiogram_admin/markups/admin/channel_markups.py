@@ -1,5 +1,6 @@
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
+from aiogram_admin import config
 from aiogram_admin.callback_data.base_callback import ChatCallback, Action
 from aiogram_admin.models import BaseSubsChat
 
@@ -18,6 +19,6 @@ def view_channels(channels: list[BaseSubsChat]):
 def touch_channel(channel):
     builder = InlineKeyboardBuilder()
     builder.button(text="✍ Удалить.", callback_data=ChatCallback(pk=channel.id, action=Action.delete))
-    builder.button(text="⬅️ Назад", callback_data="admin")
+    builder.button(text="⬅️ Назад", callback_data=config.ADMIN_COMMAND)
     builder.adjust(1)
     return builder.as_markup()

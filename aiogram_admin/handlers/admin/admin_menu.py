@@ -6,6 +6,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import StatesGroup, State
 from aiogram.utils.chat_action import ChatActionSender
 
+from aiogram_admin import config
 from aiogram_admin import utils
 from aiogram_admin.markups.admin import admin_markups
 
@@ -43,13 +44,13 @@ async def export_users_finish(call: types.CallbackQuery, state: FSMContext):
     await call.message.answer("Пользователи выгружены", reply_markup=admin_markups.back())
 
 
-def register_admin(dp: Router, commands:Iterable[str]|str="admin"):
+def register_admin(dp: Router):
     dp.include_router(router)
 
     callback = router.callback_query.register
     message = router.message.register
 
-    message(admin_start, Command(commands=commands), StateFilter("*"))
-    callback(admin_start, Text("admin"), StateFilter("*"))
+    message(admin_start, Command(commands=config.ADMIN_COMMAND), StateFilter("*"))
+    callback(admin_start, Text(config.ADMIN_COMMAND), StateFilter("*"))
     callback(export_users_send_type, Text("export_users"), StateFilter("*"))
     callback(export_users_finish, StateFilter(ExportUsers.finish))
