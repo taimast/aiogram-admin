@@ -47,7 +47,7 @@ async def create_chat_done(message: types.Message, state: FSMContext, temp_data:
         skin, username = parse_channel_link(message.text)
         channel = await models.BaseSubsChat.create(skin=skin, chat_id=f"@{username}")
         temp_data.subscription_channels.append(channel)
-        await message.answer(f"Канал для подписки: {channel}\n успешно добавлен", reply_markup=admin_markups.back())
+        await message.answer(f"Канал для подписки: {channel.chat_id}\n успешно добавлен", reply_markup=admin_markups.back())
     except Exception as e:
         logger.warning(e)
         await message.answer("Неправильный ввод", reply_markup=admin_markups.back())
