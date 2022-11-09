@@ -1,8 +1,7 @@
 from aiogram.filters.callback_data import CallbackData
 from aiogram.types import InlineKeyboardMarkup
-from aiogram.utils.i18n import gettext as _
 from aiogram.utils.keyboard import InlineKeyboardBuilder
-
+from aiogram_admin.middleware.language import gettext as _
 from aiogram_admin.models import BaseSubsChat
 
 
