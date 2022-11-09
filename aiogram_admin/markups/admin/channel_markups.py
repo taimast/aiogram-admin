@@ -9,7 +9,7 @@ def view_channels(channels: list[BaseSubsChat]):
     builder = InlineKeyboardBuilder()
     for c in channels:
         builder.button(
-            text=f"{c.chat_id} [{c.skin}]",
+            text=f"{c}",
             callback_data=ChatCallback(pk=c.id, action=Action.view)
         )
     builder.adjust(1)
