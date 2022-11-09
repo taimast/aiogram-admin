@@ -10,7 +10,7 @@ def view_channels(channels: list[BaseSubsChat]):
     for c in channels:
         builder.button(
             text=f"{c.chat_id} [{c.skin}]",
-            callback_data=ChatCallback(pk=c.chat_id, action=Action.view)
+            callback_data=ChatCallback(pk=c.id, action=Action.view)
         )
     builder.adjust(1)
     return builder.as_markup()
