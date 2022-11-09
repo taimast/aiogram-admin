@@ -19,7 +19,7 @@ class BaseSubsChat(Protocol):
         raise NotImplementedError
 
     @classmethod
-    async def create(cls, skin: str, username: str) -> 'BaseSubsChat':
+    async def create(cls, skin: str, chat_id:ChatID) -> 'BaseSubsChat':
         """Create chat in database"""
         raise NotImplementedError
 
