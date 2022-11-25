@@ -8,8 +8,8 @@ from aiogram_admin.callback_data.base_callback import ChatCallback, Action
 
 
 def admin_start():
-    keywords =  [
-        ("📄 Список каналов для  подписки", ChatCallback(action=Action.all)),
+    keywords = [
+        ("📄 CСписок каналов для  подписки", ChatCallback(action=Action.all)),
         ("✍ Добавить канал для обязательной подписки", ChatCallback(action=Action.create)),
         ("📈 Общая информация о боте", "statistics"),
         ("🔖 Сделать рассылку", "send_mail"),
