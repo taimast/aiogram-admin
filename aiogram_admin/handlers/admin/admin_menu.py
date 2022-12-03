@@ -81,8 +81,8 @@ async def delete_admins_handler(message: types.Message,  is_super_admin: bool, m
 
 
 @router.callback_query(Text("admins"))
-async def adminds(call: types.CallbackQuery, is_super_admin:bool, state: FSMContext):
-    await call.message.answer(f"Админы: {config.bot.admins}",
+async def adminds(call: types.CallbackQuery, is_super_admin:bool,admins:list[int], state: FSMContext):
+    await call.message.answer(f"Админы: {admins}",
                               reply_markup=admin_markups.admin_start(is_super_admin))
 
 
