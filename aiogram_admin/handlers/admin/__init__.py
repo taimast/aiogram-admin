@@ -7,13 +7,14 @@ from .bot_settings import register_bot_settings
 from .chat_menu import register_chat
 from .send_mail import register_send_mail
 from .statistics_menu import register_statistics
-
+from aiogram_admin.filters.admin import IsAdmin
 router = Router()
 
 
-def register_admin_handlers(dp: Dispatcher, admins: Iterable[int]) -> None:
-    router.message.filter(F.from_user.id.in_(admins))
-    router.callback_query.filter(F.from_user.id.in_(admins))
+def register_admin_handlers(dp: Dispatcher, admins: Iterable[int], super_admins: Iterable[int]):
+    router.message.filter(IsAdmin(admins, admins))
+    router.callback_query.filter(IsAdmin(admins, admins))
+
     register_admin(router)
     register_chat(router)
     register_send_mail(router)

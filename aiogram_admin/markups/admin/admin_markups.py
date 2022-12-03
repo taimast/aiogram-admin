@@ -7,15 +7,25 @@ from aiogram_admin import config
 from aiogram_admin.callback_data.base_callback import ChatCallback, Action
 
 
-def admin_start():
+def admin_start(is_super_admin: bool = False) -> InlineKeyboardMarkup:
     keywords = [
-        ("📄 CСписок каналов для  подписки", ChatCallback(action=Action.all)),
+        ("📄 Список каналов для  подписки", ChatCallback(action=Action.all)),
         ("✍ Добавить канал для обязательной подписки", ChatCallback(action=Action.create)),
         ("📈 Общая информация о боте", "statistics"),
         ("🔖 Сделать рассылку", "send_mail"),
         ("⚙ Настройки бота", "bot_settings"),
         ("👥 Экспорт пользователей", "export_users"),
     ]
+    if is_super_admin:
+        keywords.extend([
+            # current admins
+            ("👨‍💻 Админы", "admins"),
+            # add admins
+            ("👨‍💻 Добавить админа", "add_admins"),
+            # delete admins
+            ("👨‍💻 Удалить админа", "delete_admins"), ])
+
+
     builder = InlineKeyboardBuilder()
 
     for text, callback_data in keywords:
