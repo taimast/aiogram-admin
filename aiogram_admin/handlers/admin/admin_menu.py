@@ -88,11 +88,13 @@ async def adminds(call: types.CallbackQuery, is_super_admin:bool, state: FSMCont
 
 def register_admin(dp: Router, admins: list[int], super_admins: list[int]):
     dp.include_router(router)
+    router.callback_query.filter(IsAdmin(admins, super_admins))
+    router.message.filter(IsAdmin(admins, super_admins))
 
     callback = router.callback_query.register
     message = router.message.register
 
-    message(admin_start, Command(commands=config.ADMIN_COMMAND), IsAdmin(admins, super_admins), StateFilter("*"))
+    message(admin_start, Command(commands=config.ADMIN_COMMAND), StateFilter("*"))
     callback(admin_start, Text(config.ADMIN_COMMAND), StateFilter("*"))
     callback(export_users_send_type, Text("export_users"), StateFilter("*"))
     callback(export_users_finish, StateFilter(ExportUsers.finish))
