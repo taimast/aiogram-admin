@@ -1,5 +1,3 @@
-from typing import Iterable
-
 from aiogram import Router, types
 from aiogram.filters import Command, StateFilter, Text
 from aiogram.fsm.context import FSMContext
@@ -51,12 +49,13 @@ async def add_admins(call: types.CallbackQuery, state: FSMContext):
 
 
 @router.message(StateFilter("add_admins"))
-async def add_admins_handler(message: types.Message, user: User,is_super_admin:bool, state: FSMContext):
+async def add_admins_handler(message: types.Message, user: User, is_super_admin: bool, my_admins: list[int],
+                             state: FSMContext):
     admins = message.text.split()
     for admin in admins:
         if admin.isdigit():
             admin = int(admin)
-            config.bot.admins.append(admin)
+            my_admins.append(admin)
 
     await message.answer(f"Добавлены админы {admins}", reply_markup=admin_markups.admin_start(is_super_admin))
     await state.clear()
@@ -69,12 +68,13 @@ async def delete_admins(call: types.CallbackQuery, state: FSMContext):
 
 
 @router.message(StateFilter("delete_admins"))
-async def delete_admins_handler(message: types.Message, user: User,is_super_admin:bool, state: FSMContext):
+async def delete_admins_handler(message: types.Message, user: User, is_super_admin: bool, my_admins: list[int],
+                                state: FSMContext):
     admins = message.text.split()
     for admin in admins:
         if admin.isdigit():
             admin = int(admin)
-            config.bot.admins.remove(admin)
+            my_admins.remove(admin)
 
     await message.answer(f"Удалены админы {admins}", reply_markup=admin_markups.admin_start(is_super_admin))
     await state.clear()

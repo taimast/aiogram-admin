@@ -12,8 +12,8 @@ router = Router()
 
 
 def register_admin_handlers(dp: Dispatcher, admins: Iterable[int], super_admins: Iterable[int]):
-    router.message.filter(IsAdmin(admins, admins))
-    router.callback_query.filter(IsAdmin(admins, admins))
+    router.message.filter(IsAdmin(admins, super_admins))
+    router.callback_query.filter(IsAdmin(admins, super_admins))
 
     register_admin(router)
     register_chat(router)

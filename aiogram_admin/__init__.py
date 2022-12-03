@@ -21,6 +21,7 @@ __all__ = (
 
 async def setup_admin_handlers(dp: Dispatcher,
                                admins: Iterable[int],
+                               super_admins: Iterable[int],
                                SubsChat: Type[models.BaseSubsChat],
                                User: Type[models.BaseUser],
                                admin_command: str = None,
@@ -36,7 +37,7 @@ async def setup_admin_handlers(dp: Dispatcher,
     models.BaseSubsChat = SubsChat
     models.BaseUser = User
     config.ADMIN_COMMAND = admin_command or config.ADMIN_COMMAND
-    register_admin_handlers(dp, admins)
+    register_admin_handlers(dp, admins, super_admins)
     register_common_handlers(dp)
     if temp_data is None:
         temp_data = TempData(subscription_channels=await SubsChat.all())
