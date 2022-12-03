@@ -49,7 +49,7 @@ async def add_admins(call: types.CallbackQuery, state: FSMContext):
 
 
 @router.message(StateFilter("add_admins"))
-async def add_admins_handler(message: types.Message, user: User, is_super_admin: bool, my_admins: list[int],
+async def add_admins_handler(message: types.Message, is_super_admin: bool, my_admins: list[int],
                              state: FSMContext):
     admins = message.text.split()
     for admin in admins:
@@ -68,7 +68,7 @@ async def delete_admins(call: types.CallbackQuery, state: FSMContext):
 
 
 @router.message(StateFilter("delete_admins"))
-async def delete_admins_handler(message: types.Message, user: User, is_super_admin: bool, my_admins: list[int],
+async def delete_admins_handler(message: types.Message,  is_super_admin: bool, my_admins: list[int],
                                 state: FSMContext):
     admins = message.text.split()
     for admin in admins:
@@ -81,7 +81,7 @@ async def delete_admins_handler(message: types.Message, user: User, is_super_adm
 
 
 @router.callback_query(Text("admins"))
-async def adminds(call: types.CallbackQuery, user: User,is_super_admin:bool, state: FSMContext):
+async def adminds(call: types.CallbackQuery, is_super_admin:bool, state: FSMContext):
     await call.message.answer(f"Админы: {config.bot.admins}",
                               reply_markup=admin_markups.admin_start(is_super_admin))
 
