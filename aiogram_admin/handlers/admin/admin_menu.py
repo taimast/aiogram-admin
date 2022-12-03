@@ -3,9 +3,9 @@ from aiogram.filters import Command, StateFilter, Text
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import StatesGroup, State
 from aiogram.utils.chat_action import ChatActionSender
-
 from aiogram_admin import config
 from aiogram_admin import utils
+from aiogram_admin.filters.admin import IsAdmin
 from aiogram_admin.markups.admin import admin_markups
 
 router = Router()
@@ -86,17 +86,13 @@ async def adminds(call: types.CallbackQuery, is_super_admin:bool, state: FSMCont
                               reply_markup=admin_markups.admin_start(is_super_admin))
 
 
-
-
-
-
-def register_admin(dp: Router):
+def register_admin(dp: Router, admins: list[int], super_admins: list[int]):
     dp.include_router(router)
 
     callback = router.callback_query.register
     message = router.message.register
 
-    message(admin_start, Command(commands=config.ADMIN_COMMAND), StateFilter("*"))
+    message(admin_start, Command(commands=config.ADMIN_COMMAND), IsAdmin(admins, super_admins), StateFilter("*"))
     callback(admin_start, Text(config.ADMIN_COMMAND), StateFilter("*"))
     callback(export_users_send_type, Text("export_users"), StateFilter("*"))
     callback(export_users_finish, StateFilter(ExportUsers.finish))
