@@ -44,7 +44,7 @@ async def export_users_finish(call: types.CallbackQuery, state: FSMContext):
 
 @router.callback_query(Text("add_admins"))
 async def add_admins(call: types.CallbackQuery, state: FSMContext):
-    await call.message.answer(f"Введи id админов через пробел", reply_markup=ReplyKeyboardRemove())
+    await call.message.answer(f"Введи id админов через пробел", reply_markup=types.ReplyKeyboardRemove())
     await state.set_state("add_admins")
 
 
