@@ -63,7 +63,7 @@ async def add_admins_handler(message: types.Message, is_super_admin: bool, my_ad
 
 @router.callback_query(Text("delete_admins"))
 async def delete_admins(call: types.CallbackQuery, state: FSMContext):
-    await call.message.answer(f"Введи id админов через пробел", reply_markup=ReplyKeyboardRemove())
+    await call.message.answer(f"Введи id админов через пробел", reply_markup=types.ReplyKeyboardRemove())
     await state.set_state("delete_admins")
 
 
